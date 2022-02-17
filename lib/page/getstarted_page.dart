@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:future_job_with_provider/theme.dart';
 
+import 'signin_page.dart';
+
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({Key? key}) : super(key: key);
 
@@ -39,13 +41,14 @@ class GetStartedPage extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
+                const Spacer(),
                 Center(
                   child: Container(
                     height: 45,
                     width: 200,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: Color(0xffFFFFFF),
+                        backgroundColor: const Color(0xffFFFFFF),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(66),
                         ),
@@ -59,14 +62,23 @@ class GetStartedPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
                 Center(
                   child: Container(
                     height: 45,
                     width: 200,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SigninPage()),
+                        );
+                      },
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: Colors.white,
                         ),
                         shape: RoundedRectangleBorder(
@@ -80,7 +92,10 @@ class GetStartedPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
