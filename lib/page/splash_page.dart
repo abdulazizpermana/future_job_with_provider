@@ -7,8 +7,6 @@ import 'package:future_job_with_provider/theme.dart';
 import 'getstarted_page.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
-
   @override
   _SplashPageState createState() => _SplashPageState();
 }
@@ -19,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () {
         Navigator.pushReplacement(
           context,
@@ -32,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF4141A4),
+      backgroundColor: const Color(0xFF4141A4),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

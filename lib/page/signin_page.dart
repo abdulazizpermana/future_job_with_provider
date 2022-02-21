@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:future_job_with_provider/theme.dart';
-
-import '../widget/custom_botton.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SigninPage extends StatefulWidget {
-  const SigninPage({Key? key}) : super(key: key);
-
   @override
   _SigninPageState createState() => _SigninPageState();
 }
 
 class _SigninPageState extends State<SigninPage> {
+  bool isEmailValid = true;
+
+  TextEditingController emailController = TextEditingController(text: "");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +60,44 @@ class _SigninPageState extends State<SigninPage> {
                   const SizedBox(
                     height: 8,
                   ),
-                  CustomTextForm(),
+                  TextFormField(
+                    controller: emailController,
+                    onChanged: (value) {
+                      print(value);
+                      bool isValid = EmailValidator.validate(value);
+                      print(isValid);
+                      if (isValid) {
+                        setState(() {
+                          isEmailValid = true;
+                        });
+                      } else {
+                        setState(() {
+                          isEmailValid = false;
+                        });
+                      }
+                    },
+                    decoration: InputDecoration(
+                      fillColor: const Color(0xffF1F0F5),
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(66),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(66),
+                        borderSide: BorderSide(
+                          color: isEmailValid
+                              ? const Color(0xff4141a4)
+                              : const Color(0xffDA1212),
+                        ),
+                      ),
+                    ),
+                    style: TextStyle(
+                      color: isEmailValid
+                          ? const Color(0xff4141a4)
+                          : const Color(0xffDA1212),
+                    ),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -70,7 +108,23 @@ class _SigninPageState extends State<SigninPage> {
                   const SizedBox(
                     height: 8,
                   ),
-                  CustomTextForm(),
+                  TextFormField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      fillColor: const Color(0xffF1F0F5),
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(66),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(66),
+                        borderSide: const BorderSide(
+                          color: Color(0xff4141a4),
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(
                     height: 40,
                   ),
@@ -99,7 +153,7 @@ class _SigninPageState extends State<SigninPage> {
                     ),
                   ),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Center(
                     child: Text(

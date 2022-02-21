@@ -4,8 +4,6 @@ import 'package:future_job_with_provider/theme.dart';
 import 'signin_page.dart';
 
 class GetStartedPage extends StatelessWidget {
-  const GetStartedPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +71,7 @@ class GetStartedPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const SigninPage()),
+                          MaterialPageRoute(builder: (context) => SigninPage()),
                         );
                       },
                       style: OutlinedButton.styleFrom(
