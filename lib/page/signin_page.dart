@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_job_with_provider/page/signup_page.dart';
 import 'package:future_job_with_provider/theme.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -15,13 +16,13 @@ class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 70,
-          left: 24,
-          right: 24,
-        ),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 70,
+            left: 24,
+            right: 24,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -156,9 +157,17 @@ class _SigninPageState extends State<SigninPage> {
                     height: 20,
                   ),
                   Center(
-                    child: Text(
-                      "Create New Account",
-                      style: tittleTextStyle,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpPage()),
+                        );
+                      },
+                      child: Text(
+                        "Create New Account",
+                        style: tittleTextStyle,
+                      ),
                     ),
                   ),
                   const SizedBox(
