@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_job_with_provider/page/home_page.dart';
 import 'package:future_job_with_provider/page/signin_page.dart';
 
 import '../theme.dart';
@@ -10,6 +11,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   bool isUploaded = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,17 +94,26 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        fillColor: const Color(0xffF1F0F5),
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(66),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: OutlineInputBorder(
+                    Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          fillColor: const Color(0xffF1F0F5),
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(66),
-                            borderSide: BorderSide.none),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(66),
+                              borderSide: BorderSide.none),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -131,6 +142,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 20,
@@ -158,6 +175,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 20,
@@ -185,6 +208,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 40,
@@ -194,12 +223,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 45,
                       child: TextButton(
                         onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const SigninPage(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                          );
+                          if (_formKey.currentState.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                          }
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: primaryColor,

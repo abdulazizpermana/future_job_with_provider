@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_job_with_provider/page/home_page.dart';
 import 'package:future_job_with_provider/page/signup_page.dart';
 import 'package:future_job_with_provider/theme.dart';
 import 'package:email_validator/email_validator.dart';
@@ -124,6 +125,7 @@ class _SigninPageState extends State<SigninPage> {
                           color: Color(0xff4141a4),
                         ),
                       ),
+                      hintText: '',
                     ),
                   ),
                   const SizedBox(
@@ -134,12 +136,12 @@ class _SigninPageState extends State<SigninPage> {
                     height: 45,
                     child: TextButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const SigninPage(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: primaryColor,
