@@ -35,3 +35,13 @@ TextStyle buttonTextStyle = GoogleFonts.poppins(
   fontSize: 14,
   fontWeight: FontWeight.w500,
 );
+TextStyle JobTextStyle = GoogleFonts.poppins(
+  color: const Color(0xff272c2f),
+  fontSize: 16,
+  fontWeight: FontWeight.w500,
+);
+TextStyle CompanyTextStyle = GoogleFonts.poppins(
+  color: const Color(0xffb3b5c4),
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+);
