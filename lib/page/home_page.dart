@@ -70,6 +70,7 @@ class HomePage extends StatelessWidget {
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.only(left: 24),
                 child: Row(
@@ -127,6 +128,9 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 30,
+            ),
             Padding(
               padding: const EdgeInsets.only(
                 left: 24,
@@ -147,6 +151,17 @@ class HomePage extends StatelessWidget {
                 imageUrl: 'assets/images/ic1.png',
                 jobTitle: 'UI Designer',
                 companyName: 'Instagram',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 24,
+                top: 16,
+              ),
+              child: CustomList(
+                imageUrl: 'assets/images/ic.png',
+                jobTitle: 'Front End Developer',
+                companyName: 'Google',
               ),
             ),
             Padding(
@@ -205,11 +220,16 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          header(),
-          body(),
-        ],
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: Column(
+          children: [
+            header(),
+            body(),
+          ],
+        ),
       ),
     );
   }

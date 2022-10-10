@@ -40,6 +40,10 @@ TextStyle JobTextStyle = GoogleFonts.poppins(
   fontSize: 16,
   fontWeight: FontWeight.w500,
 );
+TextStyle ReqTextStyle = GoogleFonts.poppins(
+  color: const Color(0xff272c2f),
+  fontSize: 14,
+);
 TextStyle CompanyTextStyle = GoogleFonts.poppins(
   color: const Color(0xffb3b5c4),
   fontSize: 14,
