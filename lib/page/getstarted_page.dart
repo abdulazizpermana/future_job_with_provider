@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_job_with_provider/page/signup_page.dart';
 import 'package:future_job_with_provider/theme.dart';
 
 import 'signin_page.dart';
@@ -56,7 +57,12 @@ class GetStartedPage extends StatelessWidget {
                         style: regulartext.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpPage()),
+                        );
+                      },
                     ),
                   ),
                 ),

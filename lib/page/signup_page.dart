@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:future_job_with_provider/models/user_model.dart';
 import 'package:future_job_with_provider/page/home_page.dart';
 import 'package:future_job_with_provider/page/signin_page.dart';
+import 'package:future_job_with_provider/providers/auth_provider.dart';
+import 'package:future_job_with_provider/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../theme.dart';
 
@@ -10,11 +14,30 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController goalController = TextEditingController();
+
+  bool isLoading = false;
+
   bool isUploaded = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
+
+    void showError(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(message),
+        ),
+      );
+    }
+
     Widget uploadedimage() {
       return Center(
         child: InkWell(
@@ -97,6 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Form(
                       key: _formKey,
                       child: TextFormField(
+                        controller: nameController,
                         decoration: InputDecoration(
                           fillColor: const Color(0xffF1F0F5),
                           filled: true,
@@ -127,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 8,
                     ),
                     TextFormField(
-                      obscureText: true,
+                      controller: emailController,
                       decoration: InputDecoration(
                         fillColor: const Color(0xffF1F0F5),
                         filled: true,
@@ -160,6 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 8,
                     ),
                     TextFormField(
+                      controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         fillColor: const Color(0xffF1F0F5),
@@ -193,7 +218,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 8,
                     ),
                     TextFormField(
-                      obscureText: true,
+                      controller: goalController,
                       decoration: InputDecoration(
                         fillColor: const Color(0xffF1F0F5),
                         filled: true,
@@ -221,31 +246,63 @@ class _SignUpPageState extends State<SignUpPage> {
                     Container(
                       width: 400,
                       height: 45,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
+                      child: isLoading
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : TextButton(
+                              onPressed: () async {
+                                if (nameController.text.isEmpty ||
+                                    passwordController.text.isEmpty ||
+                                    emailController.text.isEmpty ||
+                                    goalController.text.isEmpty) {
+                                  showError('Semua field harus diisi');
+                                } else {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  UserModel user = await authProvider.register(
+                                    emailController.text,
+                                    passwordController.text,
+                                    nameController.text,
+                                    goalController.text,
+                                  );
+
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+
+                                  if (user == null) {
+                                    showError('email sudah terdaftar');
+                                  } else {
+                                    userProvider.user = user;
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const HomePage(),
+                                      ),
+                                    );
+                                  }
+
+                                  if (_formKey.currentState.validate()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
+                                    );
+                                  }
+                                }
+                              },
+                              style: TextButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(66),
+                                ),
+                              ),
+                              child: Text(
+                                "Sign Up",
+                                style: buttonTextStyle,
+                              ),
                             ),
-                          );
-                          if (_formKey.currentState.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(66),
-                          ),
-                        ),
-                        child: Text(
-                          "Sign Up",
-                          style: buttonTextStyle,
-                        ),
-                      ),
                     ),
                     const SizedBox(
                       height: 20,
